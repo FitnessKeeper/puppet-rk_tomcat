@@ -1,0 +1,67 @@
+---
+# Java
+rk_tomcat::java::zulu_package: zulu-8
+rk_tomcat::java::zulu_version: 8.17.0.7-1
+
+# Tomcat
+rk_tomcat::tomcat::hosts:
+    localhost:
+      ip: 127.0.0.1
+      host_aliases:
+        - localhost.localdomain
+rk_tomcat::tomcat::logdir: /var/log/tomcat7
+rk_tomcat::tomcat::postgres_driver: postgresql-9.4-1203.jdbc42
+rk_tomcat::tomcat::postgres_tls: false
+rk_tomcat::tomcat::catalina_home: /usr/share/tomcat7
+rk_tomcat::deploy::catalina_home: "%{alias('rk_tomcat::tomcat::catalina_home')}"
+rk_tomcat::deploy::tomcat_svc: "%{alias('rk_tomcat::tomcat::tomcat_svc')}"
+rk_tomcat::deploy::newrelic_enabled: false
+rk_tomcat::kinesis::agent_cfg: /etc/aws-kinesis/agent.json
+rk_tomcat::kinesis::agent_pkg: aws-kinesis-agent
+rk_tomcat::kinesis::agent_svc: aws-kinesis-agent
+rk_tomcat::kinesis::flows:
+  -
+rk_tomcat::limits::nofile: 65536
+rk_tomcat::rsyslog::deploy::catalina_home: "%{alias('rk_tomcat::tomcat::catalina_home')}"
+rk_tomcat::tomcat::tomcat_instance: default
+rk_tomcat::tomcat::tomcat_pkg: tomcat7
+rk_tomcat::tomcat::tomcat_native_pkg: tomcat-native
+rk_tomcat::tomcat::tomcat_svc: tomcat7
+rk_tomcat::tomcat::tomcat_user: tomcat
+rk_tomcat::tomcat::tomcat_group: tomcat
+rk_tomcat::tomcat::tomcat_jars_context_skip:
+  - "*"
+
+# New Relic
+rk_tomcat::newrelic::catalina_home: "%{alias('rk_tomcat::tomcat::catalina_home')}"
+rk_tomcat::newrelic::tomcat_user: "%{alias('rk_tomcat::tomcat::tomcat_user')}"
+rk_tomcat::newrelic::tomcat_group: "%{alias('rk_tomcat::tomcat::tomcat_group')}"
+rk_tomcat::newrelic::deploy::newrelic_enabled: "%{alias('rk_tomcat::deploy::newrelic_enabled')}"
+rk_tomcat::newrelic::deploy::staging_instance: "%{alias('rk_tomcat::deploy::staging_instance')}"
+rk_tomcat::newrelic::deploy::artifacts: "%{alias('rk_tomcat::deploy::artifacts')}"
+
+# Goss
+rk_tomcat::goss::destination: /usr/local/bin/goss
+rk_tomcat::goss::version: v0.2.2
+rk_tomcat::goss::catalina_home: "%{alias('rk_tomcat::tomcat::catalina_home')}"
+rk_tomcat::goss::font_pkgs: "%{alias('rk_tomcat::fonts::packages')}"
+rk_tomcat::goss::postgres_driver: "%{alias('rk_tomcat::tomcat::postgres_driver')}"
+rk_tomcat::goss::tomcat_native_pkg: "%{alias('rk_tomcat::tomcat::tomcat_native_pkg')}"
+rk_tomcat::goss::tomcat_pkg: "%{alias('rk_tomcat::tomcat::tomcat_pkg')}"
+rk_tomcat::goss::tomcat_svc: "%{alias('rk_tomcat::tomcat::tomcat_svc')}"
+rk_tomcat::goss::tomcat_user: "%{alias('rk_tomcat::tomcat::tomcat_user')}"
+rk_tomcat::goss::tomcat_group: "%{alias('rk_tomcat::tomcat::tomcat_group')}"
+rk_tomcat::goss::tomcat_logdir: "%{alias('rk_tomcat::tomcat::logdir')}"
+rk_tomcat::goss::zulu_package: "%{alias('rk_tomcat::java::zulu_package')}"
+rk_tomcat::goss::zulu_version: "%{alias('rk_tomcat::java::zulu_version')}"
+
+# Fonts
+rk_tomcat::fonts::packages:
+  - cjkuni-fonts-common
+  - cjkuni-fonts-ghostscript
+  - cjkuni-ukai-fonts
+  - cjkuni-uming-fonts
+  - wqy-zenhei-fonts
+
+rk_tomcat::rsyslog::datahub_host: localhost
+rk_tomcat::rsyslog::datahub_port: 1234
