@@ -1,0 +1,16 @@
+language: ruby
+
+rvm:
+- 2.0.0-p648
+
+script:
+  - "bundle exec rake spec SPEC_OPTS='--format documentation'"
+#- "bundle exec rake validate && bundle exec rake lint && bundle exec rake spec SPEC_OPTS='--format documentation'"
+
+bundler_args: --without system_tests
+env:
+  - PUPPET_VERSION=4.2.3
+
+notifications:
+  slack:
+    secure: ATfny+QAaqNqimNQz+XlEzPsKSRNgwi6jBmpyT9zV8A/er1OPiv52tSwCcHqQUjKxMHlJagIlUKi0GIkY3j5aSjGudd1rlPzgE+vWBADn8oyDoon1Z03bN82LXAxqDBanWn1QCDmNRy0N08vjHHnfQcnh8FfrDDzzQgquPgfxGQ+2gfv72WeLuParpI7PeSVkyZpeEKUn+tde1SgghRBmrvEk9FKcf9C9cx34j24bgK9OhrxF9OFEVE9nh9Jben2VlR50KKWRmUham1PHrTmoavp+ifp/t6eIRX87eODlkKMGS/uekJGsSM1CI0BDVVP8oOM+gxI/MwFNc+gjBCtiKnCgPECAXeA8L+WL/oHABzVoKu18XukAF+d5iNKbMNyI87CAYvHLXPdcWEM1Q0lbG2uQ2OhkjfBLcTYA1QVAq7fV/52CkTll4maoEgl58jUPD8Ga1heAbwJlM9ujLZ8uoPksRq5d/x2IMi27Cgje4PaokNnBaN4adugPWL0m4jS9FOE/cu63eQ6AYT+K/QJ/A0TiIh1vB+hiOvLnB5TacyMzjwWiFnkkLrokH52nllH6EHd3V4hhcw7Tc/9155O611feskgG8BABa06CbVkURnygwkciItcTAs3NhU8Xbm1RP9tczzlOaO5OMrgmaF3C3hWXtPWyngFRsSwwcAbVX8=

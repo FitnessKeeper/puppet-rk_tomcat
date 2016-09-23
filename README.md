@@ -1,4 +1,5 @@
 # rk_tomcat
+[![Build Status](https://travis-ci.org/FitnessKeeper/puppet-rk_tomcat.svg?branch=master)](https://travis-ci.org/FitnessKeeper/puppet-rk_tomcat)
 
 #### Table of Contents
 
