@@ -65,4 +65,3 @@ rk_tomcat::fonts::packages:
 
 # threatstack
 rk_tomcat::threatstack::deploy_key: d3adk3yd3adk3yd3adk3yd3adk3yd3adk3yd3adk3yd3adk3yd3adk3yd3adk3yd3adk3yAA
-rk_tomcat::threatstack::configure_agent: false

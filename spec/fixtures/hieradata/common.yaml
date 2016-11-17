@@ -68,4 +68,3 @@ rk_tomcat::rsyslog::datahub_port: 1234
 
 # threatstack
 rk_tomcat::threatstack::deploy_key: d3adk3yd3adk3yd3adk3yd3adk3yd3adk3yd3adk3yd3adk3yd3adk3yd3adk3yd3adk3yAA
-rk_tomcat::threatstack::configure_agent: false
