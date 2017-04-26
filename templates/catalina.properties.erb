@@ -119,8 +119,7 @@ xom-*.jar
 # scanning for Servlet 3.0 pluggability features. These features include web
 # fragments, annotations, SCIs and classes that match @HandlesTypes. The list
 # must be a comma separated list of JAR file names.
-org.apache.catalina.startup.ContextConfig.jarsToSkip=\
-<%= @tomcat_jars_context_skip.sort.join(",\\\n") %>
+org.apache.catalina.startup.ContextConfig.jarsToSkip=*
 
 # Additional JARs (over and above the default JARs listed above) to skip when
 # scanning for TLDs. The list must be a comma separated list of JAR file names.
