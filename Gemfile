@@ -12,6 +12,8 @@ gem 'ruby-augeas', '>= 0.5'
 gem 'facter', '>= 1.7.0'
 gem 'librarian-puppet', '~> 2.2'
 gem 'deep_merge', '~> 1'
+gem 'aws-sdk', '~> 3'
+gem 'aws-instmd', '~> 0.1'
 
 group :development, :test do
   gem 'dotenv', '~> 2.0'

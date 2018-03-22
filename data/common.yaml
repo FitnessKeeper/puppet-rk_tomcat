@@ -12,6 +12,7 @@ rk_tomcat::tomcat::hosts:
 rk_tomcat::tomcat::logdir: /var/log/tomcat7
 rk_tomcat::tomcat::postgres_driver: postgresql-9.4-1203.jdbc42
 rk_tomcat::tomcat::postgres_tls: false
+rk_tomcat::tomcat::save_crash_dumps: false
 rk_tomcat::tomcat::catalina_home: /usr/share/tomcat7
 rk_tomcat::deploy::catalina_home: "%{alias('rk_tomcat::tomcat::catalina_home')}"
 rk_tomcat::deploy::tomcat_svc: "%{alias('rk_tomcat::tomcat::tomcat_svc')}"

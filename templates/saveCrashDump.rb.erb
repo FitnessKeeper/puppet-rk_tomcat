@@ -1,0 +1,68 @@
+#!/usr/bin/env ruby
+
+require 'logger'
+require 'pathname'
+require 'aws-sdk-s3'
+require 'aws/instmd'
+require 'process_lock'
+
+region = 'us-east-1'
+crash_dump_glob = 'hs_err_pid*.log'
+crash_dump_dir = '/usr/share/tomcat7'
+lock_file = '/var/lock/subsys/saveCrashDump'
+
+logger = Logger.new(STDERR)
+logger.level = Logger::ERROR
+
+s3 = Aws::S3::Resource.new(region: region)
+
+instance_id = AWS::InstMD.meta_data.instance_id
+
+bucket = "rk-engineering-#{region}"
+prefix = "tripdebug/crash_dump"
+
+begin
+  logger.info('beginning run')
+
+  # try to get a lock
+  pl = ProcessLock.new(lock_file)
+
+  acquired = pl.acquire do
+    if Dir.exist?(crash_dump_dir)
+      logger.debug(sprintf("'%s' exists, changing directory", crash_dump_dir))
+      # Dir.chdir
+      Dir.chdir(crash_dump_dir) do |dir|
+        logger.debug(sprintf("pwd: '%s'", Dir.pwd))
+        # Dir.glob
+        Dir.glob(crash_dump_glob) do |dumpfile|
+          logger.debug(sprintf("dumpfile: '%s'", dumpfile))
+          # upload to S3
+          basename = File.basename(dumpfile)
+          key = Pathname.new(prefix).join(instance_id).join(basename).to_s
+          logger.debug(sprintf("key: '%s'", key))
+          obj = s3.bucket(bucket).object(key)
+          obj.upload_file(dumpfile)
+          # File.unlink
+          File.unlink(dumpfile)
+        end
+      end
+    end
+
+    # need to return something to show we got the lock
+    pl.read
+  end
+
+  if acquired
+    logger.info('completed successfully')
+  else
+    logger.info('unable to acquire lock')
+  end
+
+  exit
+
+rescue StandardError => e
+  pl.release
+  logger.error(e.to_s)
+  logger.debug(e.traceback.join("\n"))
+  exit 1
+end

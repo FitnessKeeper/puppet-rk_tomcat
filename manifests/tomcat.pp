@@ -6,6 +6,7 @@ class rk_tomcat::tomcat (
   $logdir,
   $postgres_driver,
   $postgres_tls,
+  $save_crash_dumps,
   $tomcat_instance,
   $tomcat_pkg,
   $tomcat_native_pkg,
@@ -15,6 +16,9 @@ class rk_tomcat::tomcat (
   $tomcat_jars_context_skip,
 ) {
   validate_array($tomcat_jars_context_skip)
+
+  validate_bool($save_crash_dumps)
+  $crash_dump_util_path = '/usr/local/bin/saveCrashDump.rb'
 
   # Host file management
   validate_hash($hosts)
@@ -83,6 +87,14 @@ class rk_tomcat::tomcat (
     source => 'puppet:///modules/rk_tomcat/deploy.sh',
   } ->
 
+  file { 'saveCrashDump.rb':
+    path    => $crash_dump_util_path,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    content => template('rk_tomcat/saveCrashDump.rb.erb')
+  } ->
+
   file { $logdir:
     ensure => 'directory',
     group  => 'root',
@@ -100,6 +112,24 @@ class rk_tomcat::tomcat (
     service_name   => $tomcat_svc,
     service_ensure => 'stopped',
     service_enable => true,
+  }
+
+  # cron job to save Tomcat crash dumps
+  $ensure_crash_dump_cron = $save_crash_dumps ? {
+    true    => 'present',
+    default => 'absent',
+  }
+
+  cron { 'saveCrashDump':
+    require  => File['saveCrashDump.rb'],
+    ensure   => $ensure_crash_dump_cron,
+    command  => $crash_dump_util_path,
+    hour     => '*',
+    minute   => '*',
+    month    => '*',
+    monthday => '*',
+    weekday  => '*',
+    user     => 'root',
   }
 
   # configure rsyslog to log to DataHub
