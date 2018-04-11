@@ -1,0 +1,26 @@
+$Modload imfile
+
+## TCP TLS only ##
+$DefaultNetstreamDriverCAFile /etc/pki/tls/certs/ld-root-ca.crt # trust these CAs
+$ActionSendStreamDriver gtls # use gtls netstream driver
+$ActionSendStreamDriverMode 1 # require TLS
+$ActionSendStreamDriverAuthMode x509/name # authenticate by hostname
+$ActionSendStreamDriverPermittedPeer *.logdna.com
+## End TCP TLS only ##
+
+# catalina.out
+$InputFileName <%= @catalina_home %>/logs/catalina.out
+$InputFileTag catalina-<%= @application_tag %>:
+$InputFileStateFile catalina-<%= @application_tag %>
+$InputFileSeverity info
+$InputFileFacility user
+$InputRunFileMonitor
+
+# Only entered once in case of following multiple files
+# This will poll the file every 10 seconds
+$InputFilePollInterval 10
+
+$template LogDNAFormat,"<%%PRI%>%protocol-version% %timestamp:::date-rfc3339% %HOSTNAME% %app-name% %procid% %msgid% [logdna@48950 key=\"<%= @logdna_token %>\"] %msg%"
+
+# Send messages to LogDNA over TCP using the template.
+user.info @@syslog-a.logdna.com:6514;LogDNAFormat
