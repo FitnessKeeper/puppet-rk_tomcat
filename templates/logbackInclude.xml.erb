@@ -34,13 +34,6 @@
 
    <property name="logPattern" value="{%thread} [%level] %logger{0} - %m {mdc.uuid=%X{mdc.uuid:-null}, user.id=%X{user.id:-null}}%n%rEx{full,${ignoredStackTrace}}" />
    <property name="filePattern" value="[%d{yyyy-MM-dd HH:mm:ss.SSS}] %cn ${logPattern}" />
-   <property name="logdnaPattern" value="[%thread] %logger{0} -- %m%n%rEx{full,${ignoredStackTrace}}" />
-   
-<%- if @tier == "staging" -%>
-   <property name="logdnaEnv" value="<%= @staging_instance %>" />
-<%- else -%>
-   <property name="logdnaEnv" value="prod" />
-<%- end -%>
 
    <!--********************************************************************************************-->
    <!-- Define our appenders                                                                       -->
@@ -69,7 +62,7 @@
            <level>ERROR</level>
        </filter>
    </appender>
-   
+
    <appender name="ERRORS_ANALYTICS" class="fitnesskeeper.core.logging.ErrorAnalyticsLogAppender">
        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
            <level>ERROR</level>
@@ -98,48 +91,6 @@
       </rollingPolicy>
    </appender>
 
-   <appender name="APPLOGS_LOGDNA-HTTP" class="net._95point2.utils.LogDNAAppender">
-<%- if (@tier == "production" && ! @artifacts.keys.include?("admin")) -%>
-       <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
-          <evaluator> <!-- defaults to type ch.qos.logback.classic.boolex.JaninoEventEvaluator -->
-             <expression>try { Class.forName("fitnesskeeper.core.logging.InternalUsersFilter"); return true;  } catch (Exception ex) { return false; }</expression>
-          </evaluator>
-          <OnMatch>NEUTRAL</OnMatch>
-          <OnMismatch>DENY</OnMismatch>
-       </filter>
-       <filter class="ch.qos.logback.classic.filter.LevelFilter">
-          <level>INFO</level>
-          <onMatch>ACCEPT</onMatch>
-          <onMismatch>NEUTRAL</onMismatch>
-       </filter>
-       <filter class="ch.qos.logback.classic.filter.LevelFilter">
-          <level>WARN</level>
-          <onMatch>ACCEPT</onMatch>
-          <onMismatch>NEUTRAL</onMismatch>
-       </filter>
-       <filter class="ch.qos.logback.classic.filter.LevelFilter">
-          <level>ERROR</level>
-          <onMatch>ACCEPT</onMatch>
-          <onMismatch>NEUTRAL</onMismatch>
-       </filter>
-       <filter class="fitnesskeeper.core.logging.InternalUsersFilter" />
-<%- end -%>
-
-       <appName>${appName}</appName>
-       <env>${logdnaEnv}</env>
-       <ingestKey><%= @logdna_applogs_token %></ingestKey>
-       <includeStacktrace>true</includeStacktrace>
-       <sendMDC>true</sendMDC>
-       <layout>
-          <pattern>${logdnaPattern}</pattern>
-       </layout>
-   </appender>
-
-   <appender name="APPLOGS_LOGDNA" class="ch.qos.logback.classic.AsyncAppender">
-      <appender-ref ref="APPLOGS_LOGDNA-HTTP" />
-   </appender>
-
-
    <!-- Sometimes we might run code without an application context, i.e. unit tests, or if someone forgets to setup -->
    <if condition='property("appName").contains("default")'>
       <then>
@@ -158,7 +109,6 @@
       <appender-ref ref="${appLogAppenderRef}" />
 
 <%- if @tier != "loadtest" -%>
-      <appender-ref ref="APPLOGS_LOGDNA" />
       <appender-ref ref="ERRORS_ANALYTICS" />
 <%- end -%>
 
