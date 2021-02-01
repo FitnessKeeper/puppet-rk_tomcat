@@ -1,12 +1,5 @@
 overrides = {
 
-    fitnesskeeper.device = {
-        CloudantDeviceStore = {
-            cloudantURI = "https://<%= @cloudant_user -%>:<%= @cloudant_password -%>@<%= @cloudant_host -%>/rk-device<%= @cloudant_suffix -%>"
-            documentType = "fitnesskeeper.core.entity.DeviceEntity"
-        }
-    }
-
     fitnesskeeper.notification = {
         CloudantScheduledPushNotificationStore = {
             cloudantURI = "https://<%= @cloudant_user -%>:<%= @cloudant_password -%>@<%= @cloudant_host -%>/rk-scheduled_push_notification2<%= @cloudant_suffix -%>"
