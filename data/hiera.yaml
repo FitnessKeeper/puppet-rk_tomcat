@@ -1,8 +1,7 @@
----
-:hierarchy:
-    - secrets
-    - secrets-common
-    - common
-:merge_behavior: deeper
-:deep_merge_options:
-  :merge_hash_arrays: true
+version: 5
+hierarchy:
+  -name: "Other YAML heierarchy levels"
+  paths: 
+    - "secrets.yaml"
+    - "secrets-common.yaml"
+    - "common.yaml"
