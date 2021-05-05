@@ -129,6 +129,7 @@ $PUPPET resource service puppet ensure=stopped enable=false
 $LOGGER "Linking Tomcat homedir to CATALINA_HOME..."
 ln -s /usr/share/tomcat7 /home/tomcat
 
+
 GOSS=$(which goss)
 if [ -n "$GOSS" ]; then
   $LOGGER "Testing configuration with Goss..."
