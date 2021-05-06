@@ -100,18 +100,12 @@ $LIBRARIAN_PUPPET install
 ln -s /root/rk_tomcat "${PUPPET_MODULE_DIR}/rk_tomcat"
 
 $LOGGER "Running Puppet agent..."
-mkdir -p /etc/hiera
-cat > /etc/hiera/hiera.yaml << 'HIERA'
----
-:backends:
-  - module_data
-HIERA
 PUPPET_LOGDIR=/var/log/puppet
 mkdir -p "$PUPPET_LOGDIR"
 
 PUPPET=$(which puppet 2>/dev/null || echo '/usr/local/bin/puppet')
 $PUPPET apply \
-  --hiera_config "/etc/hiera/hiera.yaml" \
+  --hiera_config "data/hiera.yaml" \
   --modulepath "$(pwd)/modules:/etc/puppetlabs/code/modules" \
   --logdest "${PUPPET_LOGDIR}/provision.log" \
   -e 'class { "rk_tomcat": mode => "provision" }'
