@@ -1,7 +1,11 @@
+---
 version: 5
+defaults:
+  datadir: .
+  data_hash: yaml_data
 hierarchy:
-  -name: "Other YAML heierarchy levels"
-  paths: 
-    - "secrets.yaml"
-    - "secrets-common.yaml"
-    - "common.yaml"
+  - name: "Other YAML hierarchy levels"
+    paths: # Can specify an array of paths instead of one.
+      - "secrets.yaml"
+      - "secrets-common.yaml"
+      - "common.yaml"

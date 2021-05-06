@@ -48,7 +48,8 @@ class rk_tomcat (
   if ( $mode == 'provision' ) {
     class { 'rk_tomcat::fonts': }
 
-    class { 'rk_tomcat::java':
+    class { 'java':
+      package => 'java-1.8.0-openjdk-devel',
       before => Class[rk_tomcat::tomcat],
     }
   }

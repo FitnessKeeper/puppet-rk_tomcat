@@ -9,7 +9,7 @@ class rk_tomcat::consul (
   class { '::consul':
     version  => "$version",
     service_enable => true,
-    service_ensure => false,
+    service_ensure => "running",
     config_hash => {
       'data_dir'             => '/opt/consul',
       'datacenter'           => "$datacenter",

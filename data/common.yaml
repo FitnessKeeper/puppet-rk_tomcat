@@ -1,7 +1,4 @@
 ---
-# Java
-rk_tomcat::java::zulu_package: zulu-8
-rk_tomcat::java::zulu_version: 8.20.0.5-1
 
 # Tomcat
 rk_tomcat::tomcat::hosts:
