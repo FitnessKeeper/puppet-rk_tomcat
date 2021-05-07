@@ -11,8 +11,8 @@ class rk_tomcat::limits (
   }
 
   # sysctl
-  sysctl { 'sys.fs.file-max':
-    ensure  => 'present',
+  sysctl { 'fs.file-max':
+    ensure  => present,
     value   => $nofile,
     comment => 'set max open files for Tomcat',
     target  => '/etc/sysctl.d/10-rk_tomcat.conf',

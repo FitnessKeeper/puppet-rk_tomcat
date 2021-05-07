@@ -43,14 +43,13 @@ class rk_tomcat::tomcat (
     notify => Service[$tomcat_svc],
   }
 
-  # install Tomcat package
-  ::tomcat::install { '/usr/share/tomcat7':
-      source_url => 'https://www-us.apache.org/dist/tomcat/tomcat-7/v7.0.109/bin/apache-tomcat-7.0.109.tar.gz',
-  } ->
+ # install Tomcat package
+  class { '::tomcat': }
 
   ::tomcat::instance { 'default':
-    manage_service => false,
-    catalina_home  => $catalina_home,
+    install_from_source => false,
+    package_name => 'tomcat',
+    catalina_home => '/usr/share/tomcat',
   } ->
 
   class { 'rk_tomcat::newrelic::provision': } ->
