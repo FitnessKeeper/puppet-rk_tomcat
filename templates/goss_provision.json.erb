@@ -24,22 +24,6 @@
             "filetype": "file",
             "contains": []
         },
-        "/opt/consul/archives/consul-<%= @consul_version %>/consul": {
-            "exists": true,
-            "mode": "0555",
-            "owner": "root",
-            "group": "root",
-            "filetype": "file",
-            "contains": []
-        },
-        "/etc/consul/config.json": {
-            "exists": true,
-            "mode": "0664",
-            "owner": "consul",
-            "group": "consul",
-            "filetype": "file",
-            "contains": []
-        },
         "<%= @catalina_home %>/lib/<%= @postgres_driver %>.jar": {
             "exists": true,
             "mode": "0644",
