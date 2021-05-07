@@ -106,7 +106,7 @@ mkdir -p "$PUPPET_LOGDIR"
 PUPPET=$(which puppet 2>/dev/null || echo '/usr/local/bin/puppet')
 $PUPPET apply \
   --hiera_config "data/hiera.yaml" \
-  --modulepath "$(pwd)/modules:/etc/puppetlabs/code/modules" \
+  --modulepath "/etc/puppetlabs/code/modules" \
   --logdest "${PUPPET_LOGDIR}/provision.log" \
   -e 'class { "rk_tomcat": mode => "provision" }'
 
