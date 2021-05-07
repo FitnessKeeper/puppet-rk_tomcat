@@ -108,6 +108,7 @@ $PUPPET apply \
   --hiera_config "data/hiera.yaml" \
   --modulepath "/etc/puppetlabs/code/modules" \
   --logdest "${PUPPET_LOGDIR}/provision.log" \
+  --verbose --debug \
   -e 'class { "rk_tomcat": mode => "provision" }'
 
 if [ -r "${PUPPET_LOGDIR}/provision.log" ]; then
