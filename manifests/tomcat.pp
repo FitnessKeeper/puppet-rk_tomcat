@@ -44,7 +44,11 @@ class rk_tomcat::tomcat (
   }
 
  # install Tomcat package
-  class { '::tomcat': }
+  class { '::tomcat': } ->
+
+  notify { 'tomcat_installed':
+    message  => 'tomcat installed'
+  } ->
 
   ::tomcat::instance { 'default':
     install_from_source => false,
@@ -52,7 +56,15 @@ class rk_tomcat::tomcat (
     catalina_home => '/usr/share/tomcat',
   } ->
 
+  notify { 'tomcat_instance':
+    message  => 'tomcat instance created'
+  } ->
+
   class { 'rk_tomcat::newrelic::provision': } ->
+
+  notify { 'newrelic_created':
+    message  => 'newrelic created'
+  } ->
 
   file { 'postgres_driver':
     path   => "${catalina_home}/lib/${postgres_driver_jarfile}",
