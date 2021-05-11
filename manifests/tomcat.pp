@@ -35,38 +35,48 @@ class rk_tomcat::tomcat (
     }
   }
 
-  File {
-    ensure => 'present',
-    owner  => $tomcat_user,
-    group  => $tomcat_group,
-    mode   => '0640',
-    notify => Service[$tomcat_svc],
-  }
 
- # install Tomcat package
-  class { '::tomcat': } ->
-
-  notify { 'tomcat_installed':
-    message  => 'tomcat installed'
-  } ->
-
-  ::tomcat::instance { 'default':
+  # install Tomcat package
+  ::tomcat::install { '/usr/share/tomcat':
     install_from_source => false,
     package_name => 'tomcat',
     catalina_home => '/usr/share/tomcat',
+    package_ensure => installed
   } ->
 
-  notify { 'tomcat_instance':
-    message  => 'tomcat instance created'
+  notify { 'log0':
+    message => 'Tomcat install',
   } ->
 
-  class { 'rk_tomcat::newrelic::provision': } ->
+  ::tomcat::instance { 'default':
+    catalina_home => '/usr/share/tomcat',
+    manage_service => false
+  } ->
 
-  notify { 'newrelic_created':
-    message  => 'newrelic created'
+  notify { 'log1':
+    message => 'tomcat instance',
+  } ->
+
+  ::tomcat::service { $tomcat_instance:
+    use_jsvc       => false,
+    use_init       => true,
+    service_name   => 'tomcat',
+    service_ensure => 'stopped',
+    service_enable => true,
+  } ->
+
+  notify { 'log2':
+    message => 'Tomcat service',
+  } ->
+
+  class { 'rk_tomcat::newrelic::provision': } ~>
+
+  notify { 'log3':
+    message => 'newrelic installed',
   } ->
 
   file { 'postgres_driver':
+
     path   => "${catalina_home}/lib/${postgres_driver_jarfile}",
     owner  => 'root',
     group  => 'root',
@@ -101,7 +111,7 @@ class rk_tomcat::tomcat (
     group   => 'root',
     mode    => '0755',
     content => template('rk_tomcat/saveCrashDump.rb.erb')
-  } ->
+  }
 
   file { $logdir:
     ensure => 'directory',
@@ -112,15 +122,8 @@ class rk_tomcat::tomcat (
   # apr for performance
   package { $tomcat_native_pkg:
     ensure => present,
-  } ->
-
-  ::tomcat::service { $tomcat_instance:
-    use_jsvc       => false,
-    use_init       => true,
-    service_name   => $tomcat_svc,
-    service_ensure => 'stopped',
-    service_enable => true,
   }
+
 
   # configure rsyslog to log to DataHub
   class { 'rk_tomcat::rsyslog': }
