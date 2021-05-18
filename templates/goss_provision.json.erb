@@ -99,12 +99,7 @@
             "installed": true
         },
         <%- end -%>
-        "<%= @zulu_package %>": {
-            "installed": true,
-            "versions": [
-               "<%= @zulu_version_goss %>"
-            ]
-        }
+
     },
     "service": {
        "<%= @tomcat_svc %>": {
@@ -117,8 +112,7 @@
             "exists": true,
             "groups": [
                "<%= @tomcat_group %>"
-            ],
-            "home": "/home/<%= @tomcat_user %>"
+            ]
         }
     },
     "group": {
