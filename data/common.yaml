@@ -56,8 +56,7 @@ rk_tomcat::goss::consul_version: "%{alias('rk_tomcat::consul::version')}"
 
 # Fonts
 rk_tomcat::fonts::packages:
-  - cjkuni-fonts-common
-  - cjkuni-fonts-ghostscript
+  - ghostscript-chinese
   - cjkuni-ukai-fonts
   - cjkuni-uming-fonts
   - wqy-zenhei-fonts
