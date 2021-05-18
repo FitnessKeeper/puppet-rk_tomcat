@@ -35,6 +35,13 @@ class rk_tomcat::tomcat (
     }
   }
 
+  File {
+    ensure => 'present',
+    owner  => $tomcat_user,
+    group  => $tomcat_group,
+    mode   => '0640',
+    notify => Service[$tomcat_svc],
+  }
 
   # install Tomcat package
   ::tomcat::install { '/usr/share/tomcat':
@@ -99,7 +106,7 @@ class rk_tomcat::tomcat (
     group   => 'root',
     mode    => '0755',
     content => template('rk_tomcat/saveCrashDump.rb.erb')
-  }
+  } ->
 
   file { $logdir:
     ensure => 'directory',
