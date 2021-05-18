@@ -115,8 +115,6 @@
     "user": {
        "<%= @tomcat_user %>": {
             "exists": true,
-            "uid": 1001,
-            "gid": 1001,
             "groups": [
                "<%= @tomcat_group %>"
             ],
@@ -125,8 +123,7 @@
     },
     "group": {
        "<%= @tomcat_group %>": {
-            "exists": true,
-            "gid": 1001
+            "exists": true
         }
     },
     "dns": {
