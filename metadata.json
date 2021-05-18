@@ -11,6 +11,7 @@
     {"name":"puppetlabs-stdlib","version_requirement":"< 7.0.0"},
     {"name":"puppetlabs-tomcat","version_requirement":">= 4.0.0"},
     {"name":"puppetlabs-java","version_requirement":"7.0.2"},
+    {"name":"puppetlabs-host_core","version_requirement":"1.0.3"},
     {"name":"saz-limits","version_requirement":">= 3.0.4"},
     {"name":"rehan-wget","version_requirement":"1.6.1"},
     {"name":"herculesteam-augeasproviders_sysctl","version_requirement":">= 2.0.2"},

@@ -53,6 +53,8 @@ yum -y erase puppet
 $LOGGER "Installing utilities..."
 yum -y install git
 
+amazon-linux-extras install epel -y
+
 cd ~
 
 GIT_BRANCH=master
