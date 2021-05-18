@@ -56,17 +56,6 @@ class rk_tomcat::tomcat (
     message => 'tomcat instance',
   } ->
 
-  ::tomcat::service { $tomcat_instance:
-    use_jsvc       => false,
-    use_init       => true,
-    service_name   => 'tomcat',
-    service_ensure => 'stopped',
-    service_enable => true,
-  } ->
-
-  notify { 'log2':
-    message => 'Tomcat service',
-  } ->
 
   class { 'rk_tomcat::newrelic::provision': } ~>
 
@@ -121,8 +110,15 @@ class rk_tomcat::tomcat (
   # apr for performance
   package { $tomcat_native_pkg:
     ensure => present,
-  }
+  } ->
 
+  ::tomcat::service { $tomcat_instance:
+    use_jsvc       => false,
+    use_init       => true,
+    service_name   => 'tomcat',
+    service_ensure => 'stopped',
+    service_enable => true,
+  } 
 
   # configure rsyslog to log to DataHub
   class { 'rk_tomcat::rsyslog': }
