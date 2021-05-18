@@ -40,8 +40,6 @@ class rk_tomcat::tomcat (
   ::tomcat::install { '/usr/share/tomcat':
     install_from_source => false,
     package_name => 'tomcat',
-    catalina_home => '/usr/share/tomcat',
-    package_ensure => installed
   } ->
 
   notify { 'log0':
@@ -50,7 +48,8 @@ class rk_tomcat::tomcat (
 
   ::tomcat::instance { 'default':
     catalina_home => '/usr/share/tomcat',
-    manage_service => false
+    manage_service => false,
+    manage_properties => false
   } ->
 
   notify { 'log1':

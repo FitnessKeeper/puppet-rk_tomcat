@@ -8,12 +8,11 @@
   "project_page": "https://github.com/FitnessKeeper/puppet-rk_tomcat",
   "issues_url": "https://github.com/FitnessKeeper/puppet-rk_tomcat/issues",
   "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":">= 4.0.0 < 7.0.0"},
-    {"name":"puppetlabs-tomcat","version_requirement":">= 1.3.2"},
-    {"name":"puppetlabs-host_core","version_requirement":">= 1.0.3"},
-    {"name":"puppetlabs-java","version_requirement":">= 7.0.2"},
+    {"name":"puppetlabs-stdlib","version_requirement":"< 7.0.0"},
+    {"name":"puppetlabs-tomcat","version_requirement":">= 4.0.0"},
+    {"name":"puppetlabs-java","version_requirement":"7.0.2"},
     {"name":"saz-limits","version_requirement":">= 3.0.4"},
-    {"name":"maestrodev-wget","version_requirement":">= 1.7.1"},
+    {"name":"rehan-wget","version_requirement":"1.6.1"},
     {"name":"herculesteam-augeasproviders_sysctl","version_requirement":">= 2.0.2"},
     {"name":"threatstack-threatstack","version_requirement":">= 1.5.4 "}
   ]
