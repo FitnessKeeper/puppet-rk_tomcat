@@ -146,7 +146,7 @@ class rk_tomcat::deploy (
     default => 'absent',
   }
 
-  cron { 'saveCrashDump':
+  cron::job { 'saveCrashDump':
     ensure   => $ensure_crash_dump_cron,
     command  => '/usr/local/bin/saveCrashDump.rb',
     hour     => '*',
