@@ -13,7 +13,7 @@
     {"name":"puppetlabs-limits","version_requirement":">= 0.1.0"},
     {"name":"maestrodev-wget","version_requirement":">= 1.7.1"},
     {"name":"herculesteam-augeasproviders_sysctl","version_requirement":">= 2.0.2 < 2.2.0"},
-    {"name":"threatstack-threatstack","version_requirement":">= 1.5.4 < 2.0.0"},
+    {"name":"threatstack-threatstack","version_requirement":">= 2.3.3 < 3.0.0"},
     {"name":"KyleAnderson-consul","version_requirement":"3.2.0"}
   ]
 }
