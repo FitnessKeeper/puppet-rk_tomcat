@@ -54,6 +54,9 @@ $LOGGER "Installing utilities..."
 yum -y install git
 
 amazon-linux-extras install epel -y
+amazon-linux-extras install tomcat9 -y
+amazon-linux-extras install java-openjdk11 -y
+amazon-linux-extras install ruby2.6
 
 cd ~
 
@@ -77,7 +80,6 @@ fi
 cd rk_tomcat
 
 $LOGGER "Configuring RubyGems..."
-amazon-linux-extras install ruby2.6
 yum -y install ruby-devel glibc-devel gcc
 cat > /root/.gemrc << 'GEMRC'
 ---

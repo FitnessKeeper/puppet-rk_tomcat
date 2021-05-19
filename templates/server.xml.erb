@@ -61,10 +61,10 @@
        username="<%= resource.fetch('username') -%>"
        password="<%= resource.fetch('password') -%>"
        type="javax.sql.DataSource"
-       maxActive="<%= resource.fetch('maxactive') -%>"
+       maxTotal="<%= resource.fetch('maxactive') -%>"
        maxIdle="<%= resource.fetch('maxidle') -%>"
-       maxWait="10000"
-       removeAbandoned="true"
+       maxWaitMillis="10000"
+       removeAbandonedOnBorrow="true"
        validationQuery="select 1"
        testOnBorrow="true"
        validationInterval="30000" />

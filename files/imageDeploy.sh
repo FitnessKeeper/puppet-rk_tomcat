@@ -25,7 +25,7 @@ AWS="aws --region $REGION"
 # create the image
 if [ -z "$INSTANCE_ID" ]; then
   echo "Querying AWS to determine deploy instance."
-  GOLD_MASTER_AMI=$($AWS ec2 describe-images --owners self | jq -r '.Images | map(select(.Name | startswith("tomcat7-master-"))) | sort_by(.CreationDate) | last | .ImageId')
+  GOLD_MASTER_AMI=$($AWS ec2 describe-images --owners self | jq -r '.Images | map(select(.Name | startswith("tomcat-master-"))) | sort_by(.CreationDate) | last | .ImageId')
 
   INSTANCE_DATA=$($AWS ec2 describe-instances --filters "Name=image-id,Values=${GOLD_MASTER_AMI}" "Name=instance-state-name,Values=running")
   INSTANCE_ID=$(echo "$INSTANCE_DATA" | jq -r '.Reservations[].Instances[].InstanceId')

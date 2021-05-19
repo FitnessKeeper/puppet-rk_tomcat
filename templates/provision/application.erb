@@ -62,7 +62,7 @@ $PUPPET resource service puppet ensure=stopped enable=false
 APPLICATION_VERSION=___REPLACE_ME_APPVERSION___
 PROMOTED_VERSION=___REPLACE_ME_PROMVERSION___
 $LOGGER "Deploying application build $APPLICATION_VERSION (promoted $PROMOTED_VERSION)..."
-/usr/share/tomcat7/bin/deployBuild.sh $PROMOTED_VERSION
+/usr/share/tomcat/bin/deployBuild.sh $PROMOTED_VERSION
 
 GOSS=$(which goss)
 GOSSFILE='./goss.json'

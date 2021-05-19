@@ -43,8 +43,8 @@ $LOGGER "Running Puppet agent..."
 PUPPET_LOGDIR=/var/log/puppet
 PUPPET=$(which puppet 2>/dev/null || echo '/usr/local/bin/puppet')
 $PUPPET apply \
-  --hiera_config "/etc/hiera/hiera.yaml" \
-  --modulepath "$(pwd)/modules:/etc/puppetlabs/code/modules" \
+  --hiera_config "data/hiera.yaml" \
+  --modulepath "/etc/puppetlabs/code/modules" \
   --logdest "${PUPPET_LOGDIR}/deploy.log" \
   -e 'class { "rk_tomcat": mode => "deploy" }'
 
@@ -62,7 +62,7 @@ $PUPPET resource service puppet ensure=stopped enable=false
 APPLICATION_VERSION=___REPLACE_ME_APPVERSION___
 PROMOTED_VERSION=___REPLACE_ME_PROMVERSION___
 $LOGGER "Deploying application build $APPLICATION_VERSION (promoted $PROMOTED_VERSION)..."
-/usr/share/tomcat7/bin/deployBuild.sh $PROMOTED_VERSION
+/usr/share/tomcat/bin/deployBuild.sh $PROMOTED_VERSION
 
 GOSS=$(which goss)
 if [ -n "$GOSS" ]; then

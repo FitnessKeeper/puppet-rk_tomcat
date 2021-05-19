@@ -58,7 +58,7 @@ $AWS s3 cp $PROVISION_SCRIPT "s3://rk-devops-${REGION}/jenkins/semaphores/${INST
 
 # tag instance
 sleep 5
-$AWS ec2 create-tags --resources $INSTANCE_ID --tags "Key=Name,Value=tomcat7-gold-master" || exit 1
+$AWS ec2 create-tags --resources $INSTANCE_ID --tags "Key=Name,Value=tomcat-gold-master" || exit 1
 
 echo "Created instance ${INSTANCE_ID}."
 INSTANCE_HOSTNAME=''

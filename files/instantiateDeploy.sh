@@ -35,7 +35,7 @@ BUILD_SUBNET_ID=$($AWS ec2 describe-subnets --filters "Name=vpc-id,Values=${BUIL
 # create instance
 if [ -z "$GOLD_MASTER_AMI" ]; then
   echo "Querying AWS to determine latest gold master image ID."
-  GOLD_MASTER_AMI=$($AWS ec2 describe-images --owners self | jq -r '.Images | map(select(.Name | startswith("tomcat7-master-"))) | sort_by(.CreationDate) | last | .ImageId')
+  GOLD_MASTER_AMI=$($AWS ec2 describe-images --owners self | jq -r '.Images | map(select(.Name | startswith("tomcat-master-"))) | sort_by(.CreationDate) | last | .ImageId')
 else
   echo "Using gold master image ID ${GOLD_MASTER_AMI} provided in environment."
 fi
@@ -72,9 +72,9 @@ rm -f $DEPLOY_SCRIPT
 sleep 5
 
 # tag instance
-IMAGE_INDEX=$($AWS ec2 describe-images --owners self | jq -r ".Images | map(select(.Name | startswith(\"tomcat7-${BUILD_TARGET}-\"))) | sort_by(.CreationDate) | last | .Name | ltrimstr(\"tomcat7-${BUILD_TARGET}-\")")
+IMAGE_INDEX=$($AWS ec2 describe-images --owners self | jq -r ".Images | map(select(.Name | startswith(\"tomcat-${BUILD_TARGET}-\"))) | sort_by(.CreationDate) | last | .Name | ltrimstr(\"tomcat-${BUILD_TARGET}-\")")
 let IMAGE_INDEX++
-$AWS ec2 create-tags --resources $INSTANCE_ID --tags "Key=Name,Value=tomcat7-${BUILD_TARGET}-${IMAGE_INDEX}"
+$AWS ec2 create-tags --resources $INSTANCE_ID --tags "Key=Name,Value=tomcat-${BUILD_TARGET}-${IMAGE_INDEX}"
 
 echo "Creating instance ${INSTANCE_ID} from image ${GOLD_MASTER_AMI}."
 

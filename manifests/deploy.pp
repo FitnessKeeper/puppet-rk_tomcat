@@ -135,9 +135,9 @@ class rk_tomcat::deploy (
     content => template('rk_tomcat/server.xml.erb'),
   } ->
 
-  file { 'tomcat7.conf':
-    path    => "${catalina_home}/conf/tomcat7.conf",
-    content => template('rk_tomcat/tomcat7.conf.erb'),
+  file { 'tomcat.conf':
+    path    => "${catalina_home}/conf/tomcat.conf",
+    content => template('rk_tomcat/tomcat.conf.erb'),
   }
 
   # cron job to save Tomcat crash dumps

@@ -5,7 +5,7 @@ JAVA_HOME="/usr/lib/jvm/jre"
 CATALINA_BASE="<%= @catalina_home -%>"
 CATALINA_HOME="<%= @catalina_home -%>"
 JASPER_HOME="<%= @catalina_home -%>"
-CATALINA_TMPDIR="/var/cache/tomcat7/temp"
+CATALINA_TMPDIR="/var/cache/tomcat/temp"
 
 # Reserve 80% of the RAM for tomcat stack, round the total to nearest whole kb
 INSTALLED_RAM=$(grep MemTotal /proc/meminfo | awk '{print $2;}')
@@ -44,7 +44,7 @@ KILL_SLEEP_WAIT="5"
 SHUTDOWN_VERBOSE="false"
 
 # Set the TOMCAT_PID location
-CATALINA_PID="/var/run/tomcat7.pid"
+CATALINA_PID="/var/run/tomcat.pid"
 
 # Connector port is 8080 for this tomcat instance
 #CONNECTOR_PORT="8080"
