@@ -54,7 +54,6 @@
     <Resource
        name="jdbc/<%= resource.fetch('name') -%>"
        driverClassName="org.postgresql.Driver"
-       factory="org.apache.commons.dbcp.BasicDataSourceFactory"
        url="<%= resource.fetch('url') -%>"
        username="<%= resource.fetch('username') -%>"
        password="<%= resource.fetch('password') -%>"
