@@ -152,7 +152,6 @@ class rk_tomcat::deploy (
     hour     => '*',
     minute   => '*',
     month    => '*',
-    monthday => '*',
     weekday  => '*',
     user     => 'root',
   }

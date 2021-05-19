@@ -54,7 +54,13 @@ class rk_tomcat (
     }
   }
 
+  # common dependencies
+
   class { 'rk_tomcat::tomcat': }
+  
+  if !defined(Package['wget']) {
+    ensure_packages('wget')
+  }
 
   if ( $mode == 'deploy' ) {
     class { 'rk_tomcat::deploy':
@@ -67,6 +73,5 @@ class rk_tomcat (
     }
   }
 
-  # common dependencies
-  class { '::wget': }
+
 }

@@ -55,7 +55,7 @@ if [ "$IMAGE_STATE" != 'available' ]; then
   exit 1
 fi
 
-# TERMINATED_INSTANCE_ID=$($AWS ec2 terminate-instances --instance-ids $INSTANCE_ID | jq -r '.TerminatingInstances[].InstanceId')
+TERMINATED_INSTANCE_ID=$($AWS ec2 terminate-instances --instance-ids $INSTANCE_ID | jq -r '.TerminatingInstances[].InstanceId')
 echo "Terminating instance ${TERMINATED_INSTANCE_ID}."
 
 # save state for the next script

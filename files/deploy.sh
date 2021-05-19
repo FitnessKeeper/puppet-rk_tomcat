@@ -91,8 +91,8 @@ $AWS s3 rm "s3://rk-devops-${REGION}/jenkins/semaphores/${INSTANCE_ID}" 2>/dev/n
 $LOGGER "Cleaning up..."
 $AWS s3 rm "s3://rk-devops-${REGION}/secrets/instances/${INSTANCE_ID}.yaml"
 cd ..
-# rm -rf rk_tomcat
-# rm -rf /etc/puppetlabs/code/modules/*
-# yum clean all
+rm -rf rk_tomcat
+rm -rf /etc/puppetlabs/code/modules/*
+yum clean all
 
 $LOGGER "Deploy complete."

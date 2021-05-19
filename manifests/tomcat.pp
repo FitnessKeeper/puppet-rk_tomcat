@@ -49,26 +49,13 @@ class rk_tomcat::tomcat (
     package_name => 'tomcat',
   } ->
 
-  notify { 'log0':
-    message => 'Tomcat install',
-  } ->
-
   ::tomcat::instance { 'default':
     catalina_home => '/usr/share/tomcat',
     manage_service => false,
     manage_properties => false
   } ->
 
-  notify { 'log1':
-    message => 'tomcat instance',
-  } ->
-
-
   class { 'rk_tomcat::newrelic::provision': } ~>
-
-  notify { 'log3':
-    message => 'newrelic installed',
-  } ->
 
   file { 'postgres_driver':
 
