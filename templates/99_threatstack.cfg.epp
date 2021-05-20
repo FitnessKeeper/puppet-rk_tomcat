@@ -1,2 +1,2 @@
 runcmd:
- - [ "/opt/threatstack/bin/cloudsight", "setup", "--deploy-key=<%= $deploy_key -%>" ]
+ - [ "/opt/threatstack/bin/tsagent", "setup", "--deploy-key=<%= $deploy_key -%>" ]

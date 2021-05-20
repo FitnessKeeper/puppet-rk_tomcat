@@ -62,7 +62,7 @@ rk_tomcat::fonts::packages:
   - wqy-zenhei-fonts
 
 # threatstack
-rk_tomcat::threatstack::deploy_key: d3adk3yd3adk3yd3adk3yd3adk3yd3adk3yd3adk3yd3adk3yd3adk3yd3adk3yd3adk3yAA
+rk_tomcat::threatstack::deploy_key: keyIsSetBySecretsCommon
 rk_tomcat::consul::datacenter: rk-staging-infra
 rk_tomcat::consul::tag_key: staging_consul_server
 rk_tomcat::consul::version: 1.9.5
