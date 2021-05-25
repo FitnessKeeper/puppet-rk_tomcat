@@ -18,5 +18,5 @@ gem 'process_lock', '~> 0.1'
 
 group :development, :test do
   gem 'dotenv', '~> 2.0'
-  gem 'rake', '~> 10.4'
+  gem 'rake', '~> 12.3'
 end
