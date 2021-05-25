@@ -54,17 +54,19 @@
     <Resource
        name="jdbc/<%= resource.fetch('name') -%>"
        driverClassName="org.postgresql.Driver"
+       factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
        url="<%= resource.fetch('url') -%>"
        username="<%= resource.fetch('username') -%>"
        password="<%= resource.fetch('password') -%>"
        type="javax.sql.DataSource"
-       maxTotal="<%= resource.fetch('maxactive') -%>"
+       maxActive="<%= resource.fetch('maxactive') -%>"
        maxIdle="<%= resource.fetch('maxidle') -%>"
-       maxWaitMillis="10000"
-       removeAbandonedOnBorrow="true"
+       maxWait="10000"
+       removeAbandoned="true"
        validationQuery="select 1"
        testOnBorrow="true"
-       validationInterval="30000" />
+       validationInterval="30000" 
+       logAbandoned="true" />
 
     <%- end -%>
   </GlobalNamingResources>
