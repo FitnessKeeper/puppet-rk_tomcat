@@ -44,17 +44,21 @@ class rk_tomcat::tomcat (
   }
 
   # install Tomcat package
-  class { '::tomcat':
+  ::tomcat::install { '/usr/share/tomcat':
     install_from_source => false,
+    package_name => 'tomcat',
   } ->
 
-  ::tomcat::instance { $tomcat_instance:
-    package_name => $tomcat_pkg,
+  ::tomcat::instance { 'default':
+    catalina_home => '/usr/share/tomcat',
+    manage_service => false,
+    manage_properties => false
   } ->
 
-  class { 'rk_tomcat::newrelic::provision': } ->
+  class { 'rk_tomcat::newrelic::provision': } ~>
 
   file { 'postgres_driver':
+
     path   => "${catalina_home}/lib/${postgres_driver_jarfile}",
     owner  => 'root',
     group  => 'root',
@@ -105,10 +109,10 @@ class rk_tomcat::tomcat (
   ::tomcat::service { $tomcat_instance:
     use_jsvc       => false,
     use_init       => true,
-    service_name   => $tomcat_svc,
+    service_name   => 'tomcat',
     service_ensure => 'stopped',
     service_enable => true,
-  }
+  } 
 
   # configure rsyslog to log to DataHub
   class { 'rk_tomcat::rsyslog': }

@@ -1,7 +1,4 @@
 ---
-# Java
-rk_tomcat::java::zulu_package: zulu-8
-rk_tomcat::java::zulu_version: 8.20.0.5-1
 
 # Tomcat
 rk_tomcat::tomcat::hosts:
@@ -9,10 +6,10 @@ rk_tomcat::tomcat::hosts:
       ip: 127.0.0.1
       host_aliases:
         - localhost.localdomain
-rk_tomcat::tomcat::logdir: /var/log/tomcat7
-rk_tomcat::tomcat::postgres_driver: postgresql-9.4-1203.jdbc42
+rk_tomcat::tomcat::logdir: /var/log/tomcat
+rk_tomcat::tomcat::postgres_driver: postgresql-42.2.20
 rk_tomcat::tomcat::postgres_tls: false
-rk_tomcat::tomcat::catalina_home: /usr/share/tomcat7
+rk_tomcat::tomcat::catalina_home: /usr/share/tomcat
 rk_tomcat::deploy::catalina_home: "%{alias('rk_tomcat::tomcat::catalina_home')}"
 rk_tomcat::deploy::tomcat_svc: "%{alias('rk_tomcat::tomcat::tomcat_svc')}"
 rk_tomcat::deploy::newrelic_enabled: false
@@ -25,9 +22,9 @@ rk_tomcat::kinesis::flows:
 rk_tomcat::limits::nofile: 65536
 rk_tomcat::rsyslog::deploy::catalina_home: "%{alias('rk_tomcat::tomcat::catalina_home')}"
 rk_tomcat::tomcat::tomcat_instance: default
-rk_tomcat::tomcat::tomcat_pkg: tomcat7
+rk_tomcat::tomcat::tomcat_pkg: tomcat
 rk_tomcat::tomcat::tomcat_native_pkg: tomcat-native
-rk_tomcat::tomcat::tomcat_svc: tomcat7
+rk_tomcat::tomcat::tomcat_svc: tomcat
 rk_tomcat::tomcat::tomcat_user: tomcat
 rk_tomcat::tomcat::tomcat_group: tomcat
 rk_tomcat::tomcat::tomcat_jars_context_skip:
@@ -59,14 +56,13 @@ rk_tomcat::goss::consul_version: "%{alias('rk_tomcat::consul::version')}"
 
 # Fonts
 rk_tomcat::fonts::packages:
-  - cjkuni-fonts-common
-  - cjkuni-fonts-ghostscript
+  - ghostscript-chinese
   - cjkuni-ukai-fonts
   - cjkuni-uming-fonts
   - wqy-zenhei-fonts
 
 # threatstack
-rk_tomcat::threatstack::deploy_key: d3adk3yd3adk3yd3adk3yd3adk3yd3adk3yd3adk3yd3adk3yd3adk3yd3adk3yd3adk3yAA
+rk_tomcat::threatstack::deploy_key: keyIsSetBySecretsCommon
 rk_tomcat::consul::datacenter: rk-staging-infra
 rk_tomcat::consul::tag_key: staging_consul_server
-rk_tomcat::consul::version: 0.9.2
+rk_tomcat::consul::version: 1.9.5

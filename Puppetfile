@@ -6,9 +6,6 @@ forge "https://forgeapi.puppetlabs.com"
 # use dependencies defined in metadata.json
 metadata
 
-mod 'ripienaar-module_data',
-  :git => 'https://github.com/ripienaar/puppet-module-data.git',
-  :ref => '324e79829b29734bd711a991baadb27ae5331642'
 
 # use dependencies defined in Modulefile
 # modulefile

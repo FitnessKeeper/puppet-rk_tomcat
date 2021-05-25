@@ -28,7 +28,7 @@ AWS="aws --region $REGION"
 if [ -z "$INSTANCE_ID" ]; then
   echo "Querying AWS to determine gold master instance."
   # find the gold master instance
-  INSTANCE_ID=$($AWS ec2 describe-instances --filters "Name=tag:Name,Values=tomcat7-gold-master" "Name=instance-state-name,Values=running" | jq -r '.Reservations[].Instances[].InstanceId')
+  INSTANCE_ID=$($AWS ec2 describe-instances --filters "Name=tag:Name,Values=tomcat-gold-master" "Name=instance-state-name,Values=running" | jq -r '.Reservations[].Instances[].InstanceId')
 fi
 
 if [ -z "$INSTANCE_ID" ]; then
@@ -39,7 +39,7 @@ fi
 # create the image, optionally taking IMAGE_INDEX as the first command-line argument
 if [ -z "$1" ]; then
   echo "No image index provided, incrementing existing max index."
-  IMAGE_INDEX=$($AWS ec2 describe-images --owners self | jq -r '.Images | map(select(.Name | startswith("tomcat7-master-"))) | sort_by(.CreationDate) | last | .Name | ltrimstr("tomcat7-master-")')
+  IMAGE_INDEX=$($AWS ec2 describe-images --owners self | jq -r '.Images | map(select(.Name | startswith("tomcat-master-"))) | sort_by(.CreationDate) | last | .Name | ltrimstr("tomcat-master-")')
   let IMAGE_INDEX++
 else
   IMAGE_INDEX="$1"
@@ -51,7 +51,7 @@ if [ -z "$IMAGE_INDEX" ]; then
   exit 1
 fi
 
-IMAGE_NAME="tomcat7-master-${IMAGE_INDEX}"
+IMAGE_NAME="tomcat-master-${IMAGE_INDEX}"
 
 IMAGE_ID=$($AWS ec2 create-image --instance-id $INSTANCE_ID --name $IMAGE_NAME --reboot | jq -r '.ImageId')
 

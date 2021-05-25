@@ -121,7 +121,7 @@ $LOGGER "Disabling Puppet agent..."
 $PUPPET resource service puppet ensure=stopped enable=false
 
 $LOGGER "Linking Tomcat homedir to CATALINA_HOME..."
-ln -s /usr/share/tomcat7 /home/tomcat
+ln -s /usr/share/tomcat /home/tomcat
 
 GOSS=$(which goss)
 GOSSFILE='./goss.json'

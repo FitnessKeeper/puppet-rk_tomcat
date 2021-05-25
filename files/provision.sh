@@ -53,6 +53,11 @@ yum -y erase puppet
 $LOGGER "Installing utilities..."
 yum -y install git
 
+amazon-linux-extras install epel -y
+amazon-linux-extras install tomcat9 -y
+amazon-linux-extras install java-openjdk11 -y
+amazon-linux-extras install ruby2.6
+
 cd ~
 
 GIT_BRANCH=master
@@ -75,8 +80,7 @@ fi
 cd rk_tomcat
 
 $LOGGER "Configuring RubyGems..."
-yum -y install ruby23-devel glibc-devel gcc
-yum -y remove ruby20 ruby20-libs
+yum -y install ruby-devel glibc-devel gcc
 cat > /root/.gemrc << 'GEMRC'
 ---
 install: --nodocument --bindir /usr/local/bin
@@ -100,20 +104,15 @@ $LIBRARIAN_PUPPET install
 ln -s /root/rk_tomcat "${PUPPET_MODULE_DIR}/rk_tomcat"
 
 $LOGGER "Running Puppet agent..."
-mkdir -p /etc/hiera
-cat > /etc/hiera/hiera.yaml << 'HIERA'
----
-:backends:
-  - module_data
-HIERA
 PUPPET_LOGDIR=/var/log/puppet
 mkdir -p "$PUPPET_LOGDIR"
 
 PUPPET=$(which puppet 2>/dev/null || echo '/usr/local/bin/puppet')
 $PUPPET apply \
-  --hiera_config "/etc/hiera/hiera.yaml" \
-  --modulepath "$(pwd)/modules:/etc/puppetlabs/code/modules" \
+  --hiera_config "data/hiera.yaml" \
+  --modulepath "/etc/puppetlabs/code/modules" \
   --logdest "${PUPPET_LOGDIR}/provision.log" \
+  --verbose --debug \
   -e 'class { "rk_tomcat": mode => "provision" }'
 
 if [ -r "${PUPPET_LOGDIR}/provision.log" ]; then
@@ -127,7 +126,8 @@ $LOGGER "Disabling Puppet agent..."
 $PUPPET resource service puppet ensure=stopped enable=false
 
 $LOGGER "Linking Tomcat homedir to CATALINA_HOME..."
-ln -s /usr/share/tomcat7 /home/tomcat
+ln -s /usr/share/tomcat /home/tomcat
+
 
 GOSS=$(which goss)
 if [ -n "$GOSS" ]; then

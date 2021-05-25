@@ -48,13 +48,19 @@ class rk_tomcat (
   if ( $mode == 'provision' ) {
     class { 'rk_tomcat::fonts': }
 
-    class { 'rk_tomcat::java':
+    class { 'java':
+      package => 'java-11-openjdk-devel',
       before => Class[rk_tomcat::tomcat],
     }
   }
 
+  # common dependencies
+
   class { 'rk_tomcat::tomcat': }
-  class { 'rk_tomcat::consul': }
+  
+  if !defined(Package['wget']) {
+    ensure_packages('wget')
+  }
 
   if ( $mode == 'deploy' ) {
     class { 'rk_tomcat::deploy':
@@ -67,6 +73,5 @@ class rk_tomcat (
     }
   }
 
-  # common dependencies
-  class { '::wget': }
+
 }

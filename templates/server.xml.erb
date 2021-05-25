@@ -30,8 +30,6 @@
   <!--APR library loader. Documentation at /docs/apr.html -->
   <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="off" />
   
-  <!--Initialize Jasper prior to webapps are loaded. Documentation at /docs/jasper-howto.html -->
-  <Listener className="org.apache.catalina.core.JasperListener" />
   
   <!-- Prevent memory leaks due to use of particular java/javax APIs-->
   <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
@@ -56,15 +54,14 @@
     <Resource
        name="jdbc/<%= resource.fetch('name') -%>"
        driverClassName="org.postgresql.Driver"
-       factory="org.apache.commons.dbcp.BasicDataSourceFactory"
        url="<%= resource.fetch('url') -%>"
        username="<%= resource.fetch('username') -%>"
        password="<%= resource.fetch('password') -%>"
        type="javax.sql.DataSource"
-       maxActive="<%= resource.fetch('maxactive') -%>"
+       maxTotal="<%= resource.fetch('maxactive') -%>"
        maxIdle="<%= resource.fetch('maxidle') -%>"
-       maxWait="10000"
-       removeAbandoned="true"
+       maxWaitMillis="10000"
+       removeAbandonedOnBorrow="true"
        validationQuery="select 1"
        testOnBorrow="true"
        validationInterval="30000" />
