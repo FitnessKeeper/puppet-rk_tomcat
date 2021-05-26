@@ -9,7 +9,7 @@ CATALINA_TMPDIR="/var/cache/tomcat/temp"
 
 # Reserve 80% of the RAM for tomcat stack, round the total to nearest whole kb
 INSTALLED_RAM=$(grep MemTotal /proc/meminfo | awk '{print $2;}')
-HEAP_SIZE=$(echo "${INSTALLED_RAM} * .8" | bc)
+HEAP_SIZE=$(echo "${INSTALLED_RAM} * .4" | bc)
 HEAP_SIZE=$(printf "%0.f" ${HEAP_SIZE})
 
 # Prepare the options to pass to java
