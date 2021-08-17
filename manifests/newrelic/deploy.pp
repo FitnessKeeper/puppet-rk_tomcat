@@ -22,4 +22,17 @@ class rk_tomcat::newrelic::deploy(
     mode    => '0640',
     content => template('rk_tomcat/newrelic.yml.erb'),
   }
+
+  class { 'newrelic_infra::agent':
+    ensure      => 'latest',
+    license_key => $license,
+  }
+
+  file { "/etc/newrelic-infra/logging.d/logging.yml":
+    ensure  => $ensure,
+    owner   => $rk_tomcat::newrelic::tomcat_user,
+    group   => $rk_tomcat::newrelic::tomcat_group,
+    mode    => '0640',
+    content => template('rk_tomcat/newrelic_logging.yml.erb'),
+  }
 }
