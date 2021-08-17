@@ -54,9 +54,6 @@
 
    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
       <file>${logFileDir}/logback.${appName}.log</file>
-<!--       <encoder>
-         <pattern>${filePattern}</pattern>
-      </encoder> -->
       <encoder class="com.newrelic.logging.logback.NewRelicEncoder"/>
       <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
          <fileNamePattern>${logFileDir}/logback.${appName}.%d{yyyy-MM-dd-HH}.log.gz</fileNamePattern>
