@@ -1,0 +1,10 @@
+###############################################################################
+# Log forwarder configuration file example                                    #
+# Source: file                                                                #
+# Available customization parameters: attributes, max_line_kb, pattern        #
+###############################################################################
+logs:
+    # Basic tailing of a single file
+  - name: log-files
+    file: /var/log/tomcat/logback.*.log
+    
