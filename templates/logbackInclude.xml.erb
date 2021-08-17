@@ -54,9 +54,10 @@
 
    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
       <file>${logFileDir}/logback.${appName}.log</file>
-      <encoder>
+<!--       <encoder>
          <pattern>${filePattern}</pattern>
-      </encoder>
+      </encoder> -->
+      <encoder class="com.newrelic.logging.logback.NewRelicEncoder"/>
       <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
          <fileNamePattern>${logFileDir}/logback.${appName}.%d{yyyy-MM-dd-HH}.log.gz</fileNamePattern>
          <cleanHistoryOnStart>true</cleanHistoryOnStart>
@@ -140,6 +141,9 @@
       <neverBlock>true</neverBlock>
    </appender>
 
+   <appender name="APPLOGS_NEWRELIC" class="com.newrelic.logging.logback.NewRelicAsyncAppender">
+      <appender-ref ref="FILE" /> 
+   </appender>
 
    <!-- Sometimes we might run code without an application context, i.e. unit tests, or if someone forgets to setup -->
    <if condition='property("appName").contains("default")'>
@@ -147,7 +151,7 @@
          <property name="appLogAppenderRef" value="STDOUT" />
       </then>
       <else>
-         <property name="appLogAppenderRef" value="FILE" />
+         <property name="appLogAppenderRef" value="APPLOGS_NEWRELIC" />
       </else>
    </if>
 
