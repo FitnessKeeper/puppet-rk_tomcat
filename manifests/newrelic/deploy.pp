@@ -29,7 +29,7 @@ class rk_tomcat::newrelic::deploy(
   }
 
   file { "/etc/newrelic-infra/logging.d/logging.yml":
-    ensure  => $ensure,
+    ensure  => 'present',
     owner   => $rk_tomcat::newrelic::tomcat_user,
     group   => $rk_tomcat::newrelic::tomcat_group,
     mode    => '0640',
