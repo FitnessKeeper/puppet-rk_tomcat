@@ -8,16 +8,16 @@
   "project_page": "https://github.com/FitnessKeeper/puppet-rk_tomcat",
   "issues_url": "https://github.com/FitnessKeeper/puppet-rk_tomcat/issues",
   "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":"< 7.0.0"},
-    {"name":"puppetlabs-tomcat","version_requirement":">= 4.0.0 < 5.0.0"},
-    {"name":"puppetlabs-java","version_requirement":">= 7.0.2 < 8.0.0"},
+    {"name":"puppetlabs-stdlib","version_requirement":"6.6.0"},
+    {"name":"puppetlabs-tomcat","version_requirement":"4.3.0"},
+    {"name":"puppetlabs-java","version_requirement":"7.3.0"},
     {"name":"newrelic-newrelic_infra","version_requirement":"0.11.0"},
-    {"name":"puppetlabs-host_core","version_requirement":">= 1.0.3 < 2.0.0"},
-    {"name":"puppet-cron","version_requirement":">= 2.0.0 < 3.0.0"},
-    {"name":"puppetlabs-yumrepo_core","version_requirement":">= 1.0.7 < 2.0.0"},
-    {"name":"saz-limits","version_requirement":">= 3.0.4 < 4.0.0"},
-    {"name":"rehan-wget","version_requirement":">= 1.6.1 < 2.0.0"},
-    {"name":"herculesteam-augeasproviders_sysctl","version_requirement":">= 2.0.2 < 2.6.1"},
-    {"name":"threatstack-threatstack","version_requirement":">= 2.0.12 < 3.0.0"}
+    {"name":"puppetlabs-host_core","version_requirement":"1.1.0"},
+    {"name":"puppet-cron","version_requirement":"2.0.0"},
+    {"name":"puppetlabs-yumrepo_core","version_requirement":"1.1.0"},
+    {"name":"saz-limits","version_requirement":"3.0.4"},
+    {"name":"rehan-wget","version_requirement":"1.6.1"},
+    {"name":"herculesteam-augeasproviders_sysctl","version_requirement":"2.6.0"},
+    {"name":"threatstack-threatstack","version_requirement":"2.0.12"}
   ]
 }
