@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 if puppetversion = ENV['PUPPET_VERSION']
   gem 'puppet', puppetversion, :require => false
 else
-  gem 'puppet', '~> 7.6'
+  gem 'puppet', '~> 7.12'
 end
 
 gem 'puppetlabs_spec_helper', '>= 0.8.2'
