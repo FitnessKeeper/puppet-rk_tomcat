@@ -61,11 +61,11 @@
        type="javax.sql.DataSource"
        maxActive="<%= resource.fetch('maxactive') -%>"
        maxIdle="<%= resource.fetch('maxidle') -%>"
-       maxWait="10000"
+       maxWait="20000"
        removeAbandoned="true"
        validationQuery="select 1"
        testOnBorrow="true"
-       validationInterval="30000" 
+       validationInterval="10000"
        logAbandoned="true" />
 
     <%- end -%>
