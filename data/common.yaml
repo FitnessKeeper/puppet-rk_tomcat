@@ -7,7 +7,7 @@ rk_tomcat::tomcat::hosts:
       host_aliases:
         - localhost.localdomain
 rk_tomcat::tomcat::logdir: /var/log/tomcat
-rk_tomcat::tomcat::postgres_driver: postgresql-42.2.20
+rk_tomcat::tomcat::postgres_driver: postgresql-42.2.24
 rk_tomcat::tomcat::postgres_tls: false
 rk_tomcat::tomcat::catalina_home: /usr/share/tomcat
 rk_tomcat::deploy::catalina_home: "%{alias('rk_tomcat::tomcat::catalina_home')}"

@@ -58,7 +58,7 @@ yum -y install redhat-rpm-config
 
 amazon-linux-extras install epel -y
 amazon-linux-extras install tomcat9 -y
-amazon-linux-extras install java-openjdk11 -y
+amazon-linux-extras install java-openjdk17 -y
 amazon-linux-extras install ruby2.6
 
 cd ~
