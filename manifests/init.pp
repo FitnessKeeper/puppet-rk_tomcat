@@ -49,7 +49,7 @@ class rk_tomcat (
     class { 'rk_tomcat::fonts': }
 
     class { 'java':
-      package => 'java-17-openjdk-devel',
+      package => 'java-17-amazon-corretto-devel',
       before => Class[rk_tomcat::tomcat],
     }
   }

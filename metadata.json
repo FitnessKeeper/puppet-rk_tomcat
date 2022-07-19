@@ -1,6 +1,6 @@
 {
   "name": "fitnesskeeper/rk_tomcat",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "author": "fitnesskeeper",
   "summary": "Customize an Amazon Linux instance for Tomcat application hosting",
   "license": "Apache-2.0",
