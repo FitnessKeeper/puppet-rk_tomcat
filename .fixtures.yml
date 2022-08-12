@@ -15,7 +15,7 @@ fixtures:
        ref: "1.4.1"
     threatstack:
        repo: "threatstack/threatstack"
-       ref: "1.5.4"
+       ref: "2.0.12"
     consul:
        repo: "KyleAnderson/consul"
        ref: "3.2.0"
