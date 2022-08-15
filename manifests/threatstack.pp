@@ -5,7 +5,7 @@ class rk_tomcat::threatstack (
   class { '::threatstack':
     deploy_key      => $deploy_key,
     configure_agent => false,
-    threatstack::disable_auditd => false,
+    disable_auditd => false,
   }
   file { '/etc/cloud/cloud.cfg.d/99_threatstack.cfg':
     ensure  => file,
