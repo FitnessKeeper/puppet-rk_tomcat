@@ -126,6 +126,9 @@ else
   $LOGGER "No provisioning log found."
 fi
 
+$LOGGER "Disabling auditd service..."
+$PUPPET resource service auditd ensure=stopped enable=false
+
 $LOGGER "Disabling Puppet agent..."
 $PUPPET resource service puppet ensure=stopped enable=false
 
