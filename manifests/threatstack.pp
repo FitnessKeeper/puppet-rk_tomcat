@@ -11,4 +11,8 @@ class rk_tomcat::threatstack (
     ensure  => file,
     content => epp('rk_tomcat/99_threatstack.cfg.epp', {'deploy_key' => $deploy_key}),
   }
+  service { 'auditd':
+    ensure  => 'stopped',
+    enable  => false,
+  }
 }
