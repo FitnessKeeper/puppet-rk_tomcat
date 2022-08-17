@@ -119,8 +119,6 @@ $PUPPET apply \
   --verbose --debug \
   -e 'class { "rk_tomcat": mode => "provision" }'
 
-#$PUPPET resource service auditd enable=false
-
 if [ -r "${PUPPET_LOGDIR}/provision.log" ]; then
   $LOGGER "Uploading provisioning log to S3..."
   $AWS s3 cp "${PUPPET_LOGDIR}/provision.log" "s3://rk-devops-${REGION}/jenkins/logs/${INSTANCE_NAME}/provision.log"
