@@ -119,7 +119,7 @@ $PUPPET apply \
   --verbose --debug \
   -e 'class { "rk_tomcat": mode => "provision" }'
 
-$PUPPET resource service auditd enable=false
+#$PUPPET resource service auditd enable=false
 
 if [ -r "${PUPPET_LOGDIR}/provision.log" ]; then
   $LOGGER "Uploading provisioning log to S3..."
