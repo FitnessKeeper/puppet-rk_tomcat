@@ -61,11 +61,15 @@
        type="javax.sql.DataSource"
        maxActive="<%= resource.fetch('maxactive') -%>"
        maxIdle="<%= resource.fetch('maxidle') -%>"
-       maxWait="20000"
+       maxWait="40000"
        removeAbandoned="true"
+       removeAbandonedTimeout="240"
        validationQuery="select 1"
        testOnBorrow="true"
        validationInterval="10000"
+       initialSize="2"
+       minEvictableIdleTimeMillis="240000"
+       timeBetweenEvictionRunsMillis="10000"
        logAbandoned="true" />
 
     <%- end -%>
@@ -86,9 +90,9 @@
          Define a non-SSL HTTP/1.1 Connector on port 8080
     -->
     <Connector port="8080" protocol="HTTP/1.1"
-               connectionTimeout="120000"
+               connectionTimeout="240000"
                disableUploadTimeout="false"
-               connectionUploadTimeout="240000"
+               connectionUploadTimeout="480000"
                enableLookups="false"
                maxHttpHeaderSize="65536"
                redirectPort="8443"
@@ -119,6 +123,10 @@
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
                prefix="access" suffix=".log" renameOnRotate="true" requestAttributesEnabled="true"
                pattern="%t ip=%a u=%u s=%s B=%B D=%D F=%F I=%I m=%m U=&quot;%U&quot; q=&quot;%q&quot;" />
+
+        <Valve className="org.apache.catalina.valves.ErrorReportValve"
+               showReport="false"
+               showServerInfo="false" />
       </Host>
     </Engine>
   </Service>
