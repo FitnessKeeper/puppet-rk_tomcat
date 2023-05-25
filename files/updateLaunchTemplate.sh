@@ -19,11 +19,11 @@ template_version=$(aws ec2 create-launch-template-version \
   --launch-template-name "$SLOT_NAME" \
   --version-description "$VERSION_DESCRIPTION" \
   --launch-template-data "{\"ImageId\":\"$AMI_ID\"}" \
-  --source-version '$Default' \
+  --source-version "\$Default" \
   --query 'LaunchTemplateVersion.VersionNumber' \
   --output text)
 
 # #Set the version as default
 aws ec2 modify-launch-template \
   --launch-template-name "$SLOT_NAME" \
-  --default-version $template_version
+  --default-version "$template_version"

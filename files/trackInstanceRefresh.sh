@@ -17,9 +17,9 @@ do
     --auto-scaling-group-name "$ASG_NAME" \
     --instance-refresh-ids "$INSTANCE_REFRESH_ID")
   
-  status=$(echo $refresh | jq -r '.InstanceRefreshes[0].Status')
-  percentcomplete=$(echo $refresh | jq -r '.InstanceRefreshes[0].PercentageComplete')
-  statusreason=$(echo $refresh | jq -r '.InstanceRefreshes[0].StatusReason')
+  status=$(echo "$refresh" | jq -r '.InstanceRefreshes[0].Status')
+  percentcomplete=$(echo "$refresh" | jq -r '.InstanceRefreshes[0].PercentageComplete')
+  statusreason=$(echo "$refresh" | jq -r '.InstanceRefreshes[0].StatusReason')
 
   case $status in
     Pending)
