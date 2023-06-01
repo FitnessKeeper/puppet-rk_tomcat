@@ -5,38 +5,36 @@ if [ -z "$ASG_NAME" ]; then
   echo "No ASG_NAME variable found, exiting."
   exit 1
 fi
-if [ -z "$INSTANCE_REFRESH_ID" ]; then
-  echo "No INSTANCE_REFRESH_ID variable found, exiting."
+if [ -z "$ORIGINAL_CAPACITY" ]; then
+  echo "No ORIGINAL_CAPACITY variable found, exiting."
   exit 1
 fi
 
-#track the instance refresh until complete
+#track the scaling activity until complete
 while :
 do
-  refresh=$(aws autoscaling describe-instance-refreshes \
+  refresh=$(aws autoscaling describe-scaling-activites \
     --auto-scaling-group-name "$ASG_NAME" \
-    --instance-refresh-ids "$INSTANCE_REFRESH_ID")
+    --max-items 1)
   
-  status=$(echo "$refresh" | jq -r '.InstanceRefreshes[0].Status')
-  percentcomplete=$(echo "$refresh" | jq -r '.InstanceRefreshes[0].PercentageComplete')
-  statusreason=$(echo "$refresh" | jq -r '.InstanceRefreshes[0].StatusReason')
+  status=$(echo "$refresh" | jq -r '.Activities[0].StatusCode')
+  percentcomplete=$(echo "$refresh" | jq -r '.Activities[0].Progress')
 
   case $status in
-    Pending)
-      echo "Instance Refresh Status $status"
-      sleep 30
-      ;;
-    InProgress | Cancelling | RollbackInProgress)
-      echo "Instance Refresh Status $status ($percentcomplete% Complete), $statusreason"
+    WaitingForInstanceId | PreInService | InProgress | WaitingForELBConnectionDraining | MidLifecycleAction | WaitingForInstanceWarmup | WaitingForConnectionDraining)
+      echo "Instance Refresh for $ASG_NAME Status $status ($percentcomplete% Complete)"
       sleep 30
       ;;
     Successful)
-      echo "Instance refresh completed successfully"
+      echo "Instance Refresh for $ASG_NAME completed successfully"
       exit 0
       ;;
     *)
-      echo "Instance refresh did not complete successfully, status: $status, reason: $statusreason"
+      echo "Instance Refresh for $ASG_NAME did not complete successfully, status: $status"
       exit 1
       ;;
   esac
 done
+
+#set the desired capacity to the original value
+ws autoscaling update-auto-scaling-group --auto-scaling-group-name "$ASG_NAME" --desired-capacity $ORIGINAL_CAPACITY)

@@ -10,9 +10,13 @@ if [ -z "$SLOT_NAME" ]; then
   exit 1
 fi
 
-#start the instance refresh
-aws autoscaling start-instance-refresh \
-  --auto-scaling-group-name "$ASG_NAME" \
-  --desired-configuration "{\"LaunchTemplate\":{\"LaunchTemplateName\":\"$SLOT_NAME\",\"Version\":\"\$Default\"}}" \
-  --query 'InstanceRefreshId' \
-  --output text
+#get the current desired capacity
+currentcapacity=$(aws autoscaling describe-auto-scaling-groups \
+    --auto-scaling-group-name "$ASG_NAME" \
+    --query 'AutoScalingGroups[0].DesiredCapacity' \
+    --output text)
+
+#set the desired capacity to double the current amount
+aws autoscaling set-desired-capacity --auto-scaling-group-name "$ASG_NAME" --desired-capacity $(($currentcapacity * 2))
+
+echo $currentcapacity
