@@ -13,7 +13,7 @@ fi
 #track the scaling activity until complete
 while :
 do
-  refresh=$(aws autoscaling describe-scaling-activites \
+  refresh=$(aws autoscaling describe-scaling-activities \
     --auto-scaling-group-name "$ASG_NAME" \
     --max-items 1)
   
