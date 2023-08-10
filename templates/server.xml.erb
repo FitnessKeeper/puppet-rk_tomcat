@@ -63,12 +63,12 @@
        maxIdle="<%= resource.fetch('maxidle') -%>"
        maxWait="40000"
        removeAbandoned="true"
-       removeAbandonedTimeout="240"
+       removeAbandonedTimeout="600"
        validationQuery="select 1"
        testOnBorrow="true"
        validationInterval="10000"
        initialSize="2"
-       minEvictableIdleTimeMillis="240000"
+       minEvictableIdleTimeMillis="600000"
        timeBetweenEvictionRunsMillis="10000"
        logAbandoned="true" />
 
@@ -90,7 +90,7 @@
          Define a non-SSL HTTP/1.1 Connector on port 8080
     -->
     <Connector port="8080" protocol="HTTP/1.1"
-               connectionTimeout="240000"
+               connectionTimeout="600000"
                disableUploadTimeout="false"
                connectionUploadTimeout="480000"
                enableLookups="false"
