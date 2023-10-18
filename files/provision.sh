@@ -87,7 +87,7 @@ fi
 cd rk_tomcat
 
 $LOGGER "Configuring RubyGems..."
-yum -y install ruby23-devel glibc-devel gcc
+yum -y install ruby-devel glibc-devel gcc
 cat > /root/.gemrc << 'GEMRC'
 ---
 install: --nodocument --bindir /usr/local/bin
@@ -95,7 +95,6 @@ update: --nodocument --bindir /usr/local/bin
 GEMRC
 
 $LOGGER "Installing Bundler..."
-gem update --system
 gem install bundler
 
 $LOGGER "Installing Puppet dependencies..."
