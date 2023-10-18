@@ -95,6 +95,7 @@ $LOGGER "Installing Bundler..."
 gem install bundler
 
 $LOGGER "Installing Puppet dependencies..."
+mkdir -p /etc/puppetlabs/code/modules
 export PUPPET_MODULE_DIR='/etc/puppetlabs/code/modules'
 yum -y install augeas augeas-devel libxml2-devel
 
