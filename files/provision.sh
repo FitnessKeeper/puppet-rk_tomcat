@@ -61,7 +61,7 @@ yum -y install java-17-amazon-corretto-devel
 amazon-linux-extras install epel -y
 amazon-linux-extras install tomcat9 -y
 yum downgrade tomcat*9.0.76 -y
-yum install tomcat-native
+yum install tomcat-native -y
 amazon-linux-extras install ruby2.6
 
 cd ~
