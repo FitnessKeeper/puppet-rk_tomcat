@@ -88,7 +88,6 @@ cd rk_tomcat
 
 $LOGGER "Configuring RubyGems..."
 yum -y install ruby23-devel glibc-devel gcc
-yum -y remove ruby20 ruby20-libs
 cat > /root/.gemrc << 'GEMRC'
 ---
 install: --nodocument --bindir /usr/local/bin
