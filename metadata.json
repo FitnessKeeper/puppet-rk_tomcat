@@ -17,7 +17,6 @@
     {"name":"puppetlabs-yumrepo_core","version_requirement":"1.1.0"},
     {"name":"saz-limits","version_requirement":"3.0.4"},
     {"name":"rehan-wget","version_requirement":"1.6.1"},
-    {"name":"herculesteam-augeasproviders_sysctl","version_requirement":"2.6.0"},
-    {"name":"threatstack-threatstack","version_requirement":"2.0.12"}
+    {"name":"herculesteam-augeasproviders_sysctl","version_requirement":"2.6.0"}
   ]
 }

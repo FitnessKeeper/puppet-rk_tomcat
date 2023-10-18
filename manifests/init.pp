@@ -66,7 +66,6 @@ class rk_tomcat (
     class { 'rk_tomcat::deploy':
       require => Class[rk_tomcat::tomcat],
     }
-    class { 'rk_tomcat::threatstack': }
 
     class { 'rk_tomcat::goss::deploy':
       require => Class[rk_tomcat::deploy],
