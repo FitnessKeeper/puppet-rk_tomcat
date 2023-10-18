@@ -93,8 +93,10 @@ GEMRC
 
 $LOGGER "Installing Bundler..."
 gem install bundler
+gem update --system 3.2.3
 
 $LOGGER "Installing Puppet dependencies..."
+mkdir -p /etc/puppetlabs/code/modules
 export PUPPET_MODULE_DIR='/etc/puppetlabs/code/modules'
 yum -y install augeas augeas-devel libxml2-devel
 
@@ -106,7 +108,7 @@ LIBRARIAN_PUPPET=$(which librarian-puppet 2>/dev/null || echo '/usr/local/bin/li
 $LIBRARIAN_PUPPET config path "$PUPPET_MODULE_DIR" --global
 $LIBRARIAN_PUPPET install
 
-ln -s /root/rk_tomcat "${PUPPET_MODULE_DIR}/rk_tomcat"
+ln -sf /root/rk_tomcat "${PUPPET_MODULE_DIR}/rk_tomcat"
 
 $LOGGER "Running Puppet agent..."
 PUPPET_LOGDIR=/var/log/puppet
@@ -131,7 +133,7 @@ $LOGGER "Disabling Puppet agent..."
 $PUPPET resource service puppet ensure=stopped enable=false
 
 $LOGGER "Linking Tomcat homedir to CATALINA_HOME..."
-ln -s /usr/share/tomcat /home/tomcat
+ln -sf /usr/share/tomcat /home/tomcat
 
 
 GOSS=$(which goss)
