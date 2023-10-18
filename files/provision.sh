@@ -4,6 +4,8 @@
 # set up logging
 LOGGER='logger -t [CLOUDINIT] -p daemon.info'
 
+GEMHOME=/usr/local/share/gems
+
 if [[ "${USER}" -ne 0 ]]; then
   $LOGGER "$0 must be run as root."
   exit 1
@@ -85,10 +87,12 @@ fi
 cd rk_tomcat
 
 $LOGGER "Configuring RubyGems..."
-yum -y install ruby-devel glibc-devel gcc
+yum -y install ruby23-devel glibc-devel gcc
+yum -y remove ruby20 ruby20-libs
 cat > /root/.gemrc << 'GEMRC'
 ---
 install: --nodocument --bindir /usr/local/bin
+update: --nodocument --bindir /usr/local/bin
 GEMRC
 
 $LOGGER "Installing Bundler..."
@@ -102,7 +106,7 @@ yum -y install augeas augeas-devel libxml2-devel
 
 $LOGGER "Installing other gem dependencies..."
 BUNDLE=$(which bundle 2>/dev/null || echo '/usr/local/bin/bundle')
-$BUNDLE install
+$BUNDLE install --verbose
 
 LIBRARIAN_PUPPET=$(which librarian-puppet 2>/dev/null || echo '/usr/local/bin/librarian-puppet')
 $LIBRARIAN_PUPPET config path "$PUPPET_MODULE_DIR" --global
