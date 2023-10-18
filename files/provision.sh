@@ -46,9 +46,6 @@ fi
 
 $LOGGER "Provisioning..."
 
-# masking tomcat updates in yum.conf
-echo "exclude=tomcat*" >> /etc/yum.conf
-
 $LOGGER "Patching system..."
 yum -y update
 
@@ -161,6 +158,9 @@ if [ -n "$GOSS" ]; then
 else
   $LOGGER "Goss not installed, skipping tests."
 fi
+
+# masking tomcat updates in yum.conf
+echo "exclude=tomcat*" >> /etc/yum.conf
 
 $LOGGER "Removing semaphore..."
 $AWS s3 rm "s3://rk-devops-${REGION}/jenkins/semaphores/${INSTANCE_ID}" 2>/dev/null || true
