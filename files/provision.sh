@@ -46,8 +46,8 @@ fi
 
 $LOGGER "Provisioning..."
 
-# disabling yum update in cloud init
-echo "package_upgrade: false" > /etc/cloud/cloud.cfg.d/99_cloudinit_disable_package_upgrades.cfg
+# masking tomcat updates in yum.conf
+echo "exclude=tomcat*" >> /etc/yum.conf
 
 $LOGGER "Patching system..."
 yum -y update
