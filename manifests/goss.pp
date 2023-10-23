@@ -1,7 +1,6 @@
 # rk_tomcat::goss
 #
 class rk_tomcat::goss (
-  $consul_version,
   $version,
   $destination,
   $catalina_home,
