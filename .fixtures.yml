@@ -13,12 +13,6 @@ fixtures:
     tomcat:
        repo: "puppetlabs/tomcat"
        ref: "1.4.1"
-    threatstack:
-       repo: "threatstack/threatstack"
-       ref: "2.0.12"
-    consul:
-       repo: "KyleAnderson/consul"
-       ref: "3.2.0"
     archive:
        repo: "puppet/archive"
        ref: "1.3.0"

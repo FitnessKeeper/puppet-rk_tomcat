@@ -46,10 +46,6 @@ describe 'rk_tomcat', :type => :class do
       }
     end
     it { should contain_class('wget')}
-    it { should contain_class('threatstack').with(
-      'deploy_key'      => 'd3adk3yd3adk3yd3adk3yd3adk3yd3adk3yd3adk3yd3adk3yd3adk3yd3adk3yd3adk3yAA',
-      )
-    }
     it { should contain_class('rk_tomcat')}
     it { should contain_class('rk_tomcat::deploy')}
     it { should contain_class('rk_tomcat::tomcat')}

@@ -1,2 +1,0 @@
-runcmd:
- - [ "/opt/threatstack/bin/tsagent", "setup", "--deploy-key=<%= $deploy_key -%>" ]

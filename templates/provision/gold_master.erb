@@ -6,6 +6,8 @@
 # set up logging
 LOGGER='logger -t [CLOUDINIT] -p daemon.info'
 
+GEMHOME=/usr/local/share/gems
+
 if [[ "${USER}" -ne 0 ]]; then
   $LOGGER "$0 must be run as root."
   exit 1
@@ -69,29 +71,30 @@ fi
 cd rk_tomcat
 
 $LOGGER "Configuring RubyGems..."
-yum -y install ruby23-devel glibc-devel gcc
-yum -y remove ruby20 ruby20-libs
+yum -y install ruby-devel glibc-devel gcc
 cat > /root/.gemrc << 'GEMRC'
 ---
 install: --nodocument --bindir /usr/local/bin
+update: --nodocument --bindir /usr/local/bin
 GEMRC
 
 $LOGGER "Installing Bundler..."
 gem install bundler
 
 $LOGGER "Installing Puppet dependencies..."
+mkdir -p /etc/puppetlabs/code/modules
 export PUPPET_MODULE_DIR='/etc/puppetlabs/code/modules'
 yum -y install augeas-devel augeas libxml2-devel
 
 $LOGGER "Installing other gem dependencies..."
 BUNDLE=$(which bundle 2>/dev/null || echo '/usr/local/bin/bundle')
-$BUNDLE install
+$BUNDLE install --verbose
 
 LIBRARIAN_PUPPET=$(which librarian-puppet 2>/dev/null || echo '/usr/local/bin/librarian-puppet')
 $LIBRARIAN_PUPPET config path "$PUPPET_MODULE_DIR" --global
 $LIBRARIAN_PUPPET install
 
-ln -s /root/rk_tomcat "${PUPPET_MODULE_DIR}/rk_tomcat"
+ln -sf /root/rk_tomcat "${PUPPET_MODULE_DIR}/rk_tomcat"
 
 $LOGGER "Running Puppet agent..."
 mkdir -p /etc/hiera
@@ -121,7 +124,7 @@ $LOGGER "Disabling Puppet agent..."
 $PUPPET resource service puppet ensure=stopped enable=false
 
 $LOGGER "Linking Tomcat homedir to CATALINA_HOME..."
-ln -s /usr/share/tomcat /home/tomcat
+ln -sf /usr/share/tomcat /home/tomcat
 
 GOSS=$(which goss)
 GOSSFILE='./goss.json'

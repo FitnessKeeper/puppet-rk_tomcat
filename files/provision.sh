@@ -4,6 +4,8 @@
 # set up logging
 LOGGER='logger -t [CLOUDINIT] -p daemon.info'
 
+GEMHOME=/usr/local/share/gems
+
 if [[ "${USER}" -ne 0 ]]; then
   $LOGGER "$0 must be run as root."
   exit 1
@@ -89,24 +91,26 @@ yum -y install ruby-devel glibc-devel gcc
 cat > /root/.gemrc << 'GEMRC'
 ---
 install: --nodocument --bindir /usr/local/bin
+update: --nodocument --bindir /usr/local/bin
 GEMRC
 
 $LOGGER "Installing Bundler..."
 gem install bundler
 
 $LOGGER "Installing Puppet dependencies..."
+mkdir -p /etc/puppetlabs/code/modules
 export PUPPET_MODULE_DIR='/etc/puppetlabs/code/modules'
 yum -y install augeas augeas-devel libxml2-devel
 
 $LOGGER "Installing other gem dependencies..."
 BUNDLE=$(which bundle 2>/dev/null || echo '/usr/local/bin/bundle')
-$BUNDLE install
+$BUNDLE install --verbose
 
 LIBRARIAN_PUPPET=$(which librarian-puppet 2>/dev/null || echo '/usr/local/bin/librarian-puppet')
 $LIBRARIAN_PUPPET config path "$PUPPET_MODULE_DIR" --global
 $LIBRARIAN_PUPPET install
 
-ln -s /root/rk_tomcat "${PUPPET_MODULE_DIR}/rk_tomcat"
+ln -sf /root/rk_tomcat "${PUPPET_MODULE_DIR}/rk_tomcat"
 
 $LOGGER "Running Puppet agent..."
 PUPPET_LOGDIR=/var/log/puppet
@@ -131,7 +135,7 @@ $LOGGER "Disabling Puppet agent..."
 $PUPPET resource service puppet ensure=stopped enable=false
 
 $LOGGER "Linking Tomcat homedir to CATALINA_HOME..."
-ln -s /usr/share/tomcat /home/tomcat
+ln -sf /usr/share/tomcat /home/tomcat
 
 
 GOSS=$(which goss)
@@ -154,6 +158,9 @@ if [ -n "$GOSS" ]; then
 else
   $LOGGER "Goss not installed, skipping tests."
 fi
+
+# masking tomcat updates in yum.conf
+echo "exclude=tomcat*" >> /etc/yum.conf
 
 $LOGGER "Removing semaphore..."
 $AWS s3 rm "s3://rk-devops-${REGION}/jenkins/semaphores/${INSTANCE_ID}" 2>/dev/null || true
