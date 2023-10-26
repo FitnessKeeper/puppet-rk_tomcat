@@ -55,7 +55,6 @@ rk_tomcat::goss::tomcat_group: "%{alias('rk_tomcat::tomcat::tomcat_group')}"
 rk_tomcat::goss::tomcat_logdir: "%{alias('rk_tomcat::tomcat::logdir')}"
 rk_tomcat::goss::zulu_package: "%{alias('rk_tomcat::java::zulu_package')}"
 rk_tomcat::goss::zulu_version: "%{alias('rk_tomcat::java::zulu_version')}"
-rk_tomcat::goss::consul_version: "%{alias('rk_tomcat::consul::version')}"
 
 # Fonts
 rk_tomcat::fonts::packages:
@@ -67,7 +66,3 @@ rk_tomcat::fonts::packages:
 
 rk_tomcat::rsyslog::datahub_host: localhost
 rk_tomcat::rsyslog::datahub_port: 1234
-
-rk_tomcat::consul::datacenter: rk-staging-infra
-rk_tomcat::consul::tag_key: staging_consul_server
-rk_tomcat::consul::version: 1.9.5
